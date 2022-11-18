@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scb_app/constants.dart';
 import 'package:scb_app/domain/entity/request/auth_request.dart';
-import 'package:scb_app/domain/entity/response/paged_response.dart';
 import 'package:scb_app/domain/entity/response/response_wrap.dart';
 import 'package:scb_app/services/storage/secure_storage_service.dart';
 import 'package:retrofit/http.dart';

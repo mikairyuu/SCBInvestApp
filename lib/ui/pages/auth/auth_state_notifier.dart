@@ -3,10 +3,8 @@ import 'package:scb_app/core/base_notifier.dart';
 import 'package:scb_app/core/ui_state.dart';
 import 'package:scb_app/domain/entity/request/auth_request.dart';
 import 'package:scb_app/domain/repository/auth_repository.dart';
-import 'package:scb_app/main.dart';
 import 'package:scb_app/services/http/http_client.dart';
 import 'package:scb_app/services/storage/secure_storage_service.dart';
-import 'package:scb_app/ui/router/main_router.gr.dart';
 
 final isAuthStateProvider = StateProvider((ref) => false);
 

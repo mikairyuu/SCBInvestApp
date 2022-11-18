@@ -16,10 +16,13 @@ class CommonButton extends StatelessWidget {
 
   final bool enabled;
 
+  final double? width;
+
   const CommonButton(
       {super.key,
       required this.onTap,
       required this.text,
+      this.width,
       this.enabled = true,
       this.loading = false,
       this.color,
@@ -29,10 +32,9 @@ class CommonButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 50,
+        height: 43,
         child: Material(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           color: loading
               ? context.colorScheme.primaryContainer
               : (enabled
@@ -45,12 +47,13 @@ class CommonButton extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
-                          mainAxisAlignment: centerText
-                              ? MainAxisAlignment.center
-                              : MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(text,
-                                style: context.textTheme.headline2!.apply(
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.lerp(
+                                        FontWeight.w600, FontWeight.w700, 0.45),
                                     color: context.colorScheme.onPrimary)),
                           ])),
                 ),
