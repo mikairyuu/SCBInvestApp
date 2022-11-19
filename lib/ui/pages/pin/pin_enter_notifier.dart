@@ -34,9 +34,9 @@ class PinEnterNotifier extends BaseNotifier {
       if (curPin.length == 4) return;
       ref.read(enteredPinProvider.notifier).state += char;
       if (curPin.length == 3) {
+        await Future.delayed(const Duration(milliseconds: 100));
         if (ref.read(pinEnterStepProvider) == 0) {
           if (isRegister) {
-            await Future.delayed(const Duration(milliseconds: 100));
             firstStepPin = ref.read(enteredPinProvider);
             ref.read(enteredPinProvider.notifier).state = '';
             ref.read(pinEnterStepProvider.notifier).state = 1;

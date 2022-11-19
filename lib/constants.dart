@@ -1,4 +1,4 @@
-const double upperPadding = 10;
+const double upperPadding = 35;
 
 const drawableFolder = 'lib/assets/drawable';
 

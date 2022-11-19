@@ -116,7 +116,7 @@ class PinKeyboard extends ConsumerWidget {
                                           fontSize: 25),
                                     )
                                   : SvgPicture.asset(
-                                      "$drawableFolder/arrow_back.svg"))))
+                                      "$drawableFolder/ic_arrow_back.svg"))))
                   : const SizedBox(
                       width: 70,
                       height: 70,
