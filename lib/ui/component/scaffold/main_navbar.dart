@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scb_app/constants.dart';
 import 'package:scb_app/util.dart';
 
+const double iconSize = 17;
+const inactiveColor = Color(0xFFAFAFAF);
+
 class MainNavBar extends ConsumerWidget {
   final int currentIndex;
 
@@ -13,46 +16,47 @@ class MainNavBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-        decoration: BoxDecoration(
-            border:
-                Border(top: BorderSide(color: context.colorScheme.outline))),
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 15),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            NavBarButton(
-              icon: SvgPicture.asset("$drawableFolder/ic_home.svg",
-                  width: 50,
-                  height: 50,
-                  color: currentIndex == 2
-                      ? const Color(0xFFAFAFAF)
-                      : context.colorScheme.primary),
-              onTap: () => onTap(0),
-              isActive: false,
-            ),
-            NavBarButton(
-              icon: SvgPicture.asset("$drawableFolder/ic_plus.svg",
-                  width: 50,
-                  height: 50,
-                  color: currentIndex == 1
-                      ? const Color(0xFFFFFFFF)
-                      : const Color(0xFFAFAFAF)),
-              onTap: () => onTap(1),
-              isActive: currentIndex == 1,
-            ),
-            NavBarButton(
-              icon: SvgPicture.asset("$drawableFolder/ic_box.svg",
-                  width: 50,
-                  height: 50,
-                  color: currentIndex > 0
-                      ? context.colorScheme.primary
-                      : const Color(0xFFAFAFAF)),
-              onTap: () => onTap(2),
-              isActive: false,
-            ),
-          ]),
-        ));
+      color: const Color(0xFFF8FAF9),
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 40),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        NavBarButton(
+          labelText: "Портфель",
+          icon: SvgPicture.asset("$drawableFolder/ic_suitcase.svg",
+              width: iconSize,
+              height: iconSize,
+              color: currentIndex == 0 ? Colors.black : inactiveColor),
+          onTap: () => onTap(0),
+          isActive: currentIndex == 0,
+        ),
+        NavBarButton(
+          labelText: "Рынок",
+          icon: SvgPicture.asset("$drawableFolder/ic_market.svg",
+              width: iconSize,
+              height: iconSize,
+              color: currentIndex == 1 ? Colors.black : inactiveColor),
+          onTap: () => onTap(1),
+          isActive: currentIndex == 1,
+        ),
+        NavBarButton(
+          labelText: "Лента",
+          icon: SvgPicture.asset("$drawableFolder/ic_feed.svg",
+              width: iconSize,
+              height: iconSize,
+              color: currentIndex == 2 ? Colors.black : inactiveColor),
+          onTap: () => onTap(2),
+          isActive: currentIndex == 2,
+        ),
+        NavBarButton(
+          labelText: "Поддержка",
+          icon: SvgPicture.asset("$drawableFolder/ic_support.svg",
+              width: iconSize,
+              height: iconSize,
+              color: currentIndex == 3 ? Colors.black : inactiveColor),
+          onTap: () => onTap(3),
+          isActive: currentIndex == 3,
+        ),
+      ]),
+    );
   }
 }
 
@@ -60,25 +64,29 @@ class NavBarButton extends StatelessWidget {
   final Widget icon;
   final bool isActive;
   final void Function() onTap;
+  final String labelText;
 
   const NavBarButton(
       {super.key,
       required this.icon,
       this.isActive = false,
-      required this.onTap});
+      required this.onTap,
+      required this.labelText});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: onTap,
-        child: Container(
-          width: isActive ? 160 : null,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              color: isActive
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.transparent),
-          child: icon,
+        child: Wrap(
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 4,
+          children: [
+            icon,
+            Text(labelText,
+                style: context.textTheme.bodyText1!
+                    .apply(color: isActive ? Colors.black : inactiveColor))
+          ],
         ));
   }
 }
