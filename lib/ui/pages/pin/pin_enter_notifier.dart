@@ -41,9 +41,9 @@ class PinEnterNotifier extends BaseNotifier {
             ref.read(enteredPinProvider.notifier).state = '';
             ref.read(pinEnterStepProvider.notifier).state = 1;
           } else {
-            var pin = await ref.read(secureStorageProvider).getString("pin");
+            var pin = await ref.read(secureStorageProvider).getString(keyPin);
             if (pin == ref.read(enteredPinProvider)) {
-              ref.read(routerProvider).navigate(const HomeRoute());
+              ref.read(routerProvider).navigate(const MainRoutes());
             } else {
               _shakeReset();
             }

@@ -23,10 +23,15 @@ import '../pages/main/market/market_page.dart' as _i6;
 import '../pages/main/profile/profile_page.dart' as _i9;
 import '../pages/main_pages_page.dart' as _i1;
 import '../pages/pin/pin_enter_page.dart' as _i4;
+import 'auth_guard.dart' as _i12;
 
 class MainRouter extends _i10.RootStackRouter {
-  MainRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  MainRouter({
+    _i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
+    required this.authGuard,
+  }) : super(navigatorKey);
+
+  final _i12.AuthGuard authGuard;
 
   @override
   final Map<String, _i10.PageFactory> pagesMap = {
@@ -148,6 +153,7 @@ class MainRouter extends _i10.RootStackRouter {
         _i10.RouteConfig(
           GreetingWelcomeRoute.name,
           path: '/',
+          guards: [authGuard],
         ),
         _i10.RouteConfig(
           AuthRoute.name,

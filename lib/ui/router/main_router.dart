@@ -8,6 +8,7 @@ import 'package:scb_app/ui/pages/main/market/market_page.dart';
 import 'package:scb_app/ui/pages/main/profile/profile_page.dart';
 import 'package:scb_app/ui/pages/main_pages_page.dart';
 import 'package:scb_app/ui/pages/pin/pin_enter_page.dart';
+import 'package:scb_app/ui/router/auth_guard.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -25,6 +26,7 @@ import 'package:scb_app/ui/pages/pin/pin_enter_page.dart';
     CustomRoute(
         page: GreetingWelcomePage,
         initial: true,
+        guards: [AuthGuard],
         transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     CustomRoute(
         page: AuthPage,

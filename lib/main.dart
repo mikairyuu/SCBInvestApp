@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scb_app/ui/router/auth_guard.dart';
 import 'package:scb_app/ui/router/main_router.gr.dart';
 import 'package:scb_app/ui/theme.dart';
 
@@ -8,7 +9,8 @@ void main() {
   runApp(const ProviderScope(child: SCBApp()));
 }
 
-final routerProvider = Provider<MainRouter>((ref) => MainRouter());
+final routerProvider =
+    Provider<MainRouter>((ref) => MainRouter(authGuard: AuthGuard(ref)));
 
 class SCBApp extends ConsumerStatefulWidget {
   const SCBApp({super.key});

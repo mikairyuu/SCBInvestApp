@@ -24,3 +24,4 @@ class SecureStorageService {
 }
 
 const keyToken = 'token';
+const keyPin = 'pin';
