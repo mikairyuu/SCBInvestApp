@@ -14,7 +14,7 @@ class GreetingWelcomePage extends ConsumerWidget {
     return Scaffold(
         body: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(35, 66, 35, 57),
+        padding: const EdgeInsets.fromLTRB(50, 66, 50, 57),
         child: Stack(children: [
           Align(
               alignment: Alignment.topLeft,

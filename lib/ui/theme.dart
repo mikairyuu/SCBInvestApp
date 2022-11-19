@@ -8,7 +8,7 @@ var scbTheme = ThemeData(
               fontWeight:
                   FontWeight.lerp(FontWeight.w500, FontWeight.w600, 0.44)),
           headline2: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          headline3: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          headline3: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           headline4: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           headline5: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
           bodyText1: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),

@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scb_app/core/ui_state.dart';
 import 'package:scb_app/ui/component/button/common_button.dart';
 import 'package:scb_app/ui/component/input/common_field.dart';
+import 'package:scb_app/ui/router/main_router.gr.dart';
 import 'package:scb_app/util.dart';
 
 import 'auth_state_notifier.dart';
@@ -18,7 +20,7 @@ class AuthPage extends ConsumerWidget {
     return Scaffold(
         body: SafeArea(
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(35, 66, 35, 0),
+                padding: const EdgeInsets.fromLTRB(50, 66, 50, 0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,7 +52,10 @@ class AuthPage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 21),
                       CommonButton(
-                        onTap: () => {},
+                        onTap: () => {
+                          context.router
+                              .navigate(PinEnterRoute(isRegister: true))
+                        },
                         text: "Продолжить",
                       )
                     ]))));

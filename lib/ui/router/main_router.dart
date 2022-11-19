@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:scb_app/ui/greeting/greeting_logo_page.dart';
-import 'package:scb_app/ui/greeting/greeting_welcome.dart';
+import 'package:scb_app/ui/pages/greeting/greeting_welcome.dart';
 import 'package:scb_app/ui/pages/auth/auth_page.dart';
 import 'package:scb_app/ui/pages/home/home_page.dart';
 import 'package:scb_app/ui/pages/main_pages_page.dart';
+import 'package:scb_app/ui/pages/pin/pin_enter_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -16,13 +16,13 @@ import 'package:scb_app/ui/pages/main_pages_page.dart';
         ]),
     CustomRoute(
         page: GreetingWelcomePage,
-        transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
-    CustomRoute(
-        page: GreetingLogoPage,
         initial: true,
         transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     CustomRoute(
         page: AuthPage,
+        transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+    CustomRoute(
+        page: PinEnterPage,
         transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
   ],
 )
