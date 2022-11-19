@@ -32,7 +32,13 @@ class MainPages extends ConsumerWidget {
                 child: AutoTabsScaffold(
                   backgroundColor: const Color(0x00000000),
                   navigatorObservers: () => [ref.read(mainNavProvider)],
-                  routes: const [HomeRoute()],
+                  routes: const [
+                    HomeRoute(),
+                    MarketRoute(),
+                    FeedRoute(),
+                    ChatRoute(),
+                    ProfileRoute(),
+                  ],
                   bottomNavigationBuilder: isNavVisible
                       ? (context, tabsRouter) {
                           return MainNavBar(

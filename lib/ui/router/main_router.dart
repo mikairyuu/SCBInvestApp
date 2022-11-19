@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:scb_app/ui/pages/greeting/greeting_welcome.dart';
 import 'package:scb_app/ui/pages/auth/auth_page.dart';
-import 'package:scb_app/ui/pages/home/home_page.dart';
+import 'package:scb_app/ui/pages/main/chat/chat_page.dart';
+import 'package:scb_app/ui/pages/main/feed/feed_page.dart';
+import 'package:scb_app/ui/pages/main/home/home_page.dart';
+import 'package:scb_app/ui/pages/main/market/market_page.dart';
+import 'package:scb_app/ui/pages/main/profile/profile_page.dart';
 import 'package:scb_app/ui/pages/main_pages_page.dart';
 import 'package:scb_app/ui/pages/pin/pin_enter_page.dart';
 
@@ -13,6 +17,10 @@ import 'package:scb_app/ui/pages/pin/pin_enter_page.dart';
         transitionsBuilder: TransitionsBuilders.fadeIn,
         children: [
           CustomRoute(page: HomePage),
+          CustomRoute(page: MarketPage),
+          CustomRoute(page: FeedPage),
+          CustomRoute(page: ChatPage),
+          CustomRoute(page: ProfilePage),
         ]),
     CustomRoute(
         page: GreetingWelcomePage,
