@@ -43,7 +43,7 @@ class PinEnterNotifier extends BaseNotifier {
           } else {
             var pin = await ref.read(secureStorageProvider).getString(keyPin);
             if (pin == ref.read(enteredPinProvider)) {
-              ref.read(routerProvider).navigate(const MainRoutes());
+              ref.read(routerProvider).replace(const MainRoutes());
             } else {
               _shakeReset();
             }
@@ -51,7 +51,7 @@ class PinEnterNotifier extends BaseNotifier {
         } else {
           if (firstStepPin == ref.read(enteredPinProvider)) {
             ref.read(secureStorageProvider).setString("pin", firstStepPin);
-            ref.read(routerProvider).navigate(const MainRoutes());
+            ref.read(routerProvider).replace(const MainRoutes());
           } else {
             _shakeReset();
           }

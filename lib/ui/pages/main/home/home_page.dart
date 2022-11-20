@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,8 @@ import 'package:scb_app/domain/entity/stock_data.dart';
 import 'package:scb_app/ui/component/button/common_button.dart';
 import 'package:scb_app/ui/component/input/search_bar.dart';
 import 'package:scb_app/ui/component/misc/slash_divided.dart';
+import 'package:scb_app/ui/pages/main/market/stock_view_page.dart';
+import 'package:scb_app/ui/router/main_router.gr.dart';
 import 'package:scb_app/ui/theme.dart';
 import 'package:scb_app/util.dart';
 
@@ -213,34 +216,40 @@ class StockCard extends StatelessWidget {
     var upperStyle = TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.69));
-    return Row(
-      children: [
-        CircleAvatar(
-            radius: 23,
-            backgroundImage: CachedNetworkImageProvider(
-              stock.imageURL,
-            )),
-        const SizedBox(width: 13),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(stock.name, style: upperStyle),
-          const SizedBox(height: 5),
-          Text(tickerVariation ? stock.ticker : stock.pricePerStock,
-              style: context.textTheme.bodyText2!
-                  .apply(color: context.colorScheme.tertiary))
-        ]),
-        const Spacer(),
-        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text(tickerVariation ? stock.pricePerStock : stock.price,
-              style: upperStyle),
-          const SizedBox(height: 5),
-          Text('${stock.change > 0 ? '+' : ''}${stock.change}%',
-              style: context.textTheme.bodyText2!.apply(
-                  color: stock.change >= 0
-                      ? context.colorScheme.success
-                      : context.colorScheme.error))
-        ]),
-      ],
-    );
+    return GestureDetector(
+        onTap: (() {
+          context.router
+              .removeWhere((route) => route.name == StockViewRoute.name);
+          context.router.push(StockViewRoute(stock: stock));
+        }),
+        child: Row(
+          children: [
+            CircleAvatar(
+                radius: 23,
+                backgroundImage: CachedNetworkImageProvider(
+                  stock.imageURL,
+                )),
+            const SizedBox(width: 13),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(stock.name, style: upperStyle),
+              const SizedBox(height: 5),
+              Text(tickerVariation ? stock.ticker : stock.pricePerStock,
+                  style: context.textTheme.bodyText2!
+                      .apply(color: context.colorScheme.tertiary))
+            ]),
+            const Spacer(),
+            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              Text(tickerVariation ? stock.pricePerStock : stock.price,
+                  style: upperStyle),
+              const SizedBox(height: 5),
+              Text('${stock.change > 0 ? '+' : ''}${stock.change}%',
+                  style: context.textTheme.bodyText2!.apply(
+                      color: stock.change >= 0
+                          ? context.colorScheme.success
+                          : context.colorScheme.error))
+            ]),
+          ],
+        ));
   }
 }
 

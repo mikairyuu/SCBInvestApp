@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scb_app/constants.dart';
 import 'package:scb_app/ui/component/input/search_bar.dart';
 import 'package:scb_app/ui/pages/main/home/home_page.dart';
+import 'package:scb_app/ui/pages/main/market/stock_view_page.dart';
+import 'package:scb_app/ui/router/main_router.gr.dart';
 import 'package:scb_app/ui/theme.dart';
 import 'package:scb_app/util.dart';
 
