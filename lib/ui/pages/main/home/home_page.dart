@@ -17,10 +17,30 @@ List<StockData> exampleStocks = [
   const StockData(
       name: "Nvidia",
       pricePerStock: "123\$",
-      price: "45000 Р",
-      change: 2.50,
+      price: "45000 ₽",
+      change: -0.19,
       imageURL:
           "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/235_Nvidia_logo-512.png"),
+  const StockData(
+      name: "Intel",
+      pricePerStock: "639\$",
+      price: "45000 ₽",
+      change: 1.29,
+      imageURL:
+          "https://i.pinimg.com/originals/17/35/2f/17352fcf0626d3e553839e902fc14f5a.png"),
+  const StockData(
+      name: "AMD",
+      pricePerStock: "129\$",
+      price: "45000 ₽",
+      change: 1.11,
+      imageURL: "https://cdn.iconscout.com/icon/free/png-256/amd-283608.png"),
+  const StockData(
+      name: "Tinkoff LTD.",
+      pricePerStock: "29\$",
+      price: "45000 ₽",
+      change: -0.19,
+      imageURL:
+          "https://donate.shlosberg.ru/static/img/banks/tinkoff/tinkoff_logo.jpg"),
 ];
 
 class HomePage extends ConsumerWidget {
@@ -75,7 +95,7 @@ class HomePage extends ConsumerWidget {
             const Spacer(),
             CommonButton(onTap: () {}, text: "Открыть новый счёт"),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
           ],
         ));
@@ -123,8 +143,7 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
               alignment: Alignment.topCenter,
               duration: duration,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 23, vertical: 15),
+                padding: EdgeInsets.fromLTRB(23, 15, 23, expanded ? 5 : 15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -142,9 +161,10 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
                             ),
                             SlashDivided(
                               "${widget.sum.toStringAsFixed(2)} ₽",
-                              "${widget.changePercent.toStringAsFixed(2)}%",
+                              "${widget.changePercent > 0 ? '+' : ''}${widget.changePercent.toStringAsFixed(2)}%",
                               textStyle: context.textTheme.headline4!,
                               isPositive: widget.changePercent > 0,
+                              isFirstGray: true,
                             )
                           ],
                         ),
@@ -157,12 +177,14 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
                       ]),
                       if (expanded) ...[
                         const SizedBox(height: 10),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return StockCard(stock: widget.stocks[index]);
-                            },
-                            itemCount: widget.stocks.length)
+                        SizedBox(
+                          height: 125,
+                          child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                return StockCard(stock: widget.stocks[index]);
+                              },
+                              itemCount: widget.stocks.length),
+                        ),
                       ]
                     ]),
               ),
@@ -181,17 +203,16 @@ class StockCard extends StatelessWidget {
         fontSize: 14,
         fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.69));
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
             CircleAvatar(
-                child: CachedNetworkImage(
-              imageUrl: stock.imageURL,
-              width: 46,
-              height: 46,
-            )),
+                radius: 23,
+                backgroundImage: CachedNetworkImageProvider(
+                  stock.imageURL,
+                )),
             const SizedBox(width: 13),
-            Column(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(stock.name, style: upperStyle),
               const SizedBox(height: 5),
               Text(stock.pricePerStock,
@@ -199,10 +220,10 @@ class StockCard extends StatelessWidget {
                       .apply(color: context.colorScheme.tertiary))
             ]),
             const Spacer(),
-            Column(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(stock.price, style: upperStyle),
               const SizedBox(height: 5),
-              Text(' ${stock.change > 0 ? '+' : ''} ${stock.change}%',
+              Text('${stock.change > 0 ? '+' : ''}${stock.change}%',
                   style: context.textTheme.bodyText2!.apply(
                       color: stock.change >= 0
                           ? context.colorScheme.success

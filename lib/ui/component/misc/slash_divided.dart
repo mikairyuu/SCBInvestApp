@@ -6,7 +6,7 @@ class SlashDivided extends StatelessWidget {
   final String firstVal;
   final String secondVal;
   final bool isPositive;
-  final bool isFirstGray = false;
+  final bool isFirstGray;
   final Color? fixedColor;
   final TextStyle textStyle;
 
@@ -14,7 +14,8 @@ class SlashDivided extends StatelessWidget {
       {super.key,
       required this.isPositive,
       required this.textStyle,
-      this.fixedColor});
+      this.fixedColor,
+      this.isFirstGray = false});
 
   @override
   Widget build(BuildContext context) {
