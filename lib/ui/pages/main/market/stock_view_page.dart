@@ -18,6 +18,10 @@ final stockDataProvider = StateProvider.autoDispose(
     (ref) => generateGraphData(ref.read(randomProvider)));
 final randomProvider = Provider((ref) => Random());
 
+const periodButtons = ['Д', 'Н', 'М', '6М', 'Г', 'ВСЕ'];
+
+final selectedPeriodProvider = StateProvider((ref) => 0);
+
 class StockViewPage extends ConsumerStatefulWidget {
   final StockData stock;
 
@@ -95,6 +99,8 @@ class _StockViewPageState extends ConsumerState<StockViewPage> {
           ),
           const SizedBox(height: 43),
           const StockGraph(),
+          const PeriodRow(),
+          const SizedBox(height: 25),
           const ActionButtons(),
           const SizedBox(height: 40),
           Padding(
@@ -117,6 +123,60 @@ class _StockViewPageState extends ConsumerState<StockViewPage> {
             ),
           )
         ]))));
+  }
+}
+
+class PeriodRow extends ConsumerWidget {
+  const PeriodRow({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var selectedPeriod = ref.watch(selectedPeriodProvider);
+    return Center(
+        child: Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 14,
+      children: [
+        for (var i = 0; i < periodButtons.length; i++)
+          PeriodButton(
+            text: periodButtons[i],
+            onTap: () => ref.read(selectedPeriodProvider.notifier).state = i,
+            selected: selectedPeriod == i,
+          )
+      ],
+    ));
+  }
+}
+
+class PeriodButton extends StatelessWidget {
+  final String text;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const PeriodButton(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      required this.selected});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: onTap,
+        child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: selected ? context.colorScheme.primary : Colors.white),
+            height: 32,
+            child: Text(text,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight:
+                        FontWeight.lerp(FontWeight.w600, FontWeight.w700, 0.45),
+                    color: selected
+                        ? Colors.white
+                        : context.colorScheme.onSurface))));
   }
 }
 
@@ -173,7 +233,7 @@ class StockGraph extends ConsumerWidget {
           activationMode: ActivationMode.singleTap,
           shouldAlwaysShow: true,
           lineType: CrosshairLineType.both),
-      primaryXAxis: DateTimeAxis(dateFormat: DateFormat.Hms()),
+      primaryXAxis: DateTimeAxis(dateFormat: DateFormat.Hm()),
       primaryYAxis: NumericAxis(),
       series: <ChartSeries>[
         // Renders line chart
