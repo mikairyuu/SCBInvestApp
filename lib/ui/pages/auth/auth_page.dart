@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 import 'package:scb_app/core/ui_state.dart';
 import 'package:scb_app/ui/component/button/common_button.dart';
 import 'package:scb_app/ui/component/input/common_field.dart';
@@ -14,8 +15,8 @@ class AuthPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginText = ref.watch(loginTextProvider);
     final uiState = ref.watch(authStateNotifierProvider);
+    final notifier = ref.watch(authStateNotifierProvider.notifier);
 
     return Scaffold(
         body: SafeArea(
@@ -34,28 +35,19 @@ class AuthPage extends ConsumerWidget {
                         style: context.textTheme.bodyText1,
                       ),
                       const SizedBox(height: 29),
-                      if (uiState.isError)
-                        Text(
-                            uiState.error is AuthUIError
-                                ? (uiState.error as AuthUIError).description
-                                : AuthUIError.wrongCreds.description,
-                            style: context.textTheme.bodyText1!
-                                .apply(color: Colors.red)),
-                      if (uiState.isError) const SizedBox(height: 30),
-                      CommonTextField(
-                        keyboardType: TextInputType.number,
-                        numberPrefix: true,
-                        onChanged: (s) =>
-                            ref.read(loginTextProvider.notifier).state = s,
-                        error: loginText.isEmpty &&
-                            uiState.error == AuthUIError.unfilled,
-                      ),
+                      ShakeWidget(
+                          autoPlay: ref.watch(authShakeProvider),
+                          shakeConstant: ShakeDefaultConstant1(),
+                          child: CommonTextField(
+                            keyboardType: TextInputType.number,
+                            numberPrefix: true,
+                            onChanged: (s) =>
+                                ref.read(phoneProvider.notifier).state = s,
+                            error: uiState.isError,
+                          )),
                       const SizedBox(height: 21),
                       CommonButton(
-                        onTap: () => {
-                          context.router
-                              .navigate(PinEnterRoute(isRegister: true))
-                        },
+                        onTap: () => notifier.check(),
                         text: "Продолжить",
                       )
                     ]))));

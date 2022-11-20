@@ -217,6 +217,7 @@ class StockCard extends StatelessWidget {
         fontSize: 14,
         fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.69));
     return GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: (() {
           context.router
               .removeWhere((route) => route.name == StockViewRoute.name);
