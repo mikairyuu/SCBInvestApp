@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scb_app/constants.dart';
 import 'package:scb_app/domain/entity/stock_data.dart';
 import 'package:scb_app/ui/component/button/common_button.dart';
+import 'package:scb_app/ui/component/misc/slash_divided.dart';
 import 'package:scb_app/ui/theme.dart';
 import 'package:scb_app/util.dart';
 
@@ -139,24 +140,12 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
                             const SizedBox(
                               height: 12,
                             ),
-                            Text.rich(TextSpan(
-                                text: "${widget.sum.toStringAsFixed(2)} ₽ / ",
-                                style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.lerp(
-                                            FontWeight.w400,
-                                            FontWeight.w500,
-                                            0.73))
-                                    .apply(color: context.colorScheme.tertiary),
-                                children: [
-                                  TextSpan(
-                                      text:
-                                          "${widget.changePercent.toStringAsFixed(2)}%",
-                                      style: context.textTheme.headline4!.apply(
-                                          color: widget.changePercent >= 0
-                                              ? context.colorScheme.success
-                                              : context.colorScheme.error))
-                                ])),
+                            SlashDivided(
+                              "${widget.sum.toStringAsFixed(2)} ₽",
+                              "${widget.changePercent.toStringAsFixed(2)}%",
+                              textStyle: context.textTheme.headline4!,
+                              isPositive: widget.changePercent > 0,
+                            )
                           ],
                         ),
                         const Spacer(),
@@ -237,9 +226,6 @@ class CurrencyContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var labelStyle = TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.69));
     return Container(
         width: 149,
         padding: const EdgeInsets.fromLTRB(10, 11, 0, 11),
@@ -251,16 +237,13 @@ class CurrencyContainer extends StatelessWidget {
           children: [
             Image.asset(currencyIcon),
             const SizedBox(width: 10),
-            Text.rich(TextSpan(
-                style: labelStyle,
-                text: buyValue.toString(),
-                children: [
-                  TextSpan(
-                      text: ' / ',
-                      style: labelStyle.apply(
-                          color: context.colorScheme.secondary)),
-                  TextSpan(text: sellValue.toString())
-                ]))
+            SlashDivided(buyValue.toString(), sellValue.toString(),
+                fixedColor: Colors.black,
+                isPositive: true,
+                textStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.lerp(
+                        FontWeight.w400, FontWeight.w500, 0.69)))
           ],
         ));
   }

@@ -39,5 +39,5 @@ extension ColorExt on ColorScheme {
 
 extension TextThemeExt on TextTheme {
   TextStyle get bodyText0 =>
-      const TextStyle(fontSize: 20, fontWeight: FontWeight.w400);
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.w400);
 }

@@ -30,6 +30,7 @@ class MainPages extends ConsumerWidget {
                 color: color,
                 padding: const EdgeInsets.only(top: upperPadding),
                 child: AutoTabsScaffold(
+                  resizeToAvoidBottomInset: false,
                   backgroundColor: const Color(0x00000000),
                   navigatorObservers: () => [ref.read(mainNavProvider)],
                   routes: const [
