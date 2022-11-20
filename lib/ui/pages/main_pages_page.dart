@@ -28,7 +28,6 @@ class MainPages extends ConsumerWidget {
             color: Colors.white, // needed so colors with alpha can be used
             child: Container(
                 color: color,
-                padding: const EdgeInsets.only(top: upperPadding),
                 child: AutoTabsScaffold(
                   resizeToAvoidBottomInset: false,
                   backgroundColor: const Color(0x00000000),

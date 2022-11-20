@@ -7,6 +7,7 @@ part 'stock_data.g.dart';
 class StockData with _$StockData {
   const factory StockData({
     required String name,
+    required String ticker,
     required String pricePerStock,
     required String price,
     required double change,

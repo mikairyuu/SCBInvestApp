@@ -11,7 +11,7 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(30, 10, 24, 0),
+        padding: const EdgeInsets.fromLTRB(30, 45, 24, 0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
             Text("Профиль", style: context.textTheme.headline1),

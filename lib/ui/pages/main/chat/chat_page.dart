@@ -10,7 +10,7 @@ class ChatPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+        padding: const EdgeInsets.fromLTRB(18, 45, 18, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

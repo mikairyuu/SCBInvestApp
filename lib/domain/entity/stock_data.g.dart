@@ -8,6 +8,7 @@ part of 'stock_data.dart';
 
 _$_StockData _$$_StockDataFromJson(Map<String, dynamic> json) => _$_StockData(
       name: json['name'] as String,
+      ticker: json['ticker'] as String,
       pricePerStock: json['pricePerStock'] as String,
       price: json['price'] as String,
       change: (json['change'] as num).toDouble(),
@@ -17,6 +18,7 @@ _$_StockData _$$_StockDataFromJson(Map<String, dynamic> json) => _$_StockData(
 Map<String, dynamic> _$$_StockDataToJson(_$_StockData instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'ticker': instance.ticker,
       'pricePerStock': instance.pricePerStock,
       'price': instance.price,
       'change': instance.change,

@@ -5,17 +5,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scb_app/constants.dart';
 import 'package:scb_app/domain/entity/stock_data.dart';
 import 'package:scb_app/ui/component/button/common_button.dart';
+import 'package:scb_app/ui/component/input/search_bar.dart';
 import 'package:scb_app/ui/component/misc/slash_divided.dart';
 import 'package:scb_app/ui/theme.dart';
 import 'package:scb_app/util.dart';
 
 const double exampleValue = 1999111.75;
-const double exampleRubleSurp = 139.6;
+const double exampleRubleSurp = 40000;
 const double examplePercSurp = 1.99;
 
 List<StockData> exampleStocks = [
   const StockData(
       name: "Nvidia",
+      ticker: "NVDA",
       pricePerStock: "123\$",
       price: "45000 ₽",
       change: -0.19,
@@ -23,6 +25,7 @@ List<StockData> exampleStocks = [
           "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/235_Nvidia_logo-512.png"),
   const StockData(
       name: "Intel",
+      ticker: "INTC",
       pricePerStock: "639\$",
       price: "45000 ₽",
       change: 1.29,
@@ -30,12 +33,14 @@ List<StockData> exampleStocks = [
           "https://i.pinimg.com/originals/17/35/2f/17352fcf0626d3e553839e902fc14f5a.png"),
   const StockData(
       name: "AMD",
+      ticker: "AMD",
       pricePerStock: "129\$",
       price: "45000 ₽",
       change: 1.11,
       imageURL: "https://cdn.iconscout.com/icon/free/png-256/amd-283608.png"),
   const StockData(
       name: "Tinkoff LTD.",
+      ticker: "TCS",
       pricePerStock: "29\$",
       price: "45000 ₽",
       change: -0.19,
@@ -49,7 +54,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
+        padding: const EdgeInsets.fromLTRB(40, 35, 40, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -179,10 +184,14 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
                         const SizedBox(height: 10),
                         SizedBox(
                           height: 125,
-                          child: ListView.builder(
+                          child: ListView.separated(
                               itemBuilder: (context, index) {
                                 return StockCard(stock: widget.stocks[index]);
                               },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
                               itemCount: widget.stocks.length),
                         ),
                       ]
@@ -193,7 +202,9 @@ class _TextSpoilerState extends State<PortfolioSpoiler> {
 }
 
 class StockCard extends StatelessWidget {
-  const StockCard({super.key, required this.stock});
+  const StockCard(
+      {super.key, required this.stock, this.tickerVariation = false});
+  final bool tickerVariation;
 
   final StockData stock;
 
@@ -202,35 +213,34 @@ class StockCard extends StatelessWidget {
     var upperStyle = TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.69));
-    return Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            CircleAvatar(
-                radius: 23,
-                backgroundImage: CachedNetworkImageProvider(
-                  stock.imageURL,
-                )),
-            const SizedBox(width: 13),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(stock.name, style: upperStyle),
-              const SizedBox(height: 5),
-              Text(stock.pricePerStock,
-                  style: context.textTheme.bodyText2!
-                      .apply(color: context.colorScheme.tertiary))
-            ]),
-            const Spacer(),
-            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text(stock.price, style: upperStyle),
-              const SizedBox(height: 5),
-              Text('${stock.change > 0 ? '+' : ''}${stock.change}%',
-                  style: context.textTheme.bodyText2!.apply(
-                      color: stock.change >= 0
-                          ? context.colorScheme.success
-                          : context.colorScheme.error))
-            ]),
-          ],
-        ));
+    return Row(
+      children: [
+        CircleAvatar(
+            radius: 23,
+            backgroundImage: CachedNetworkImageProvider(
+              stock.imageURL,
+            )),
+        const SizedBox(width: 13),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(stock.name, style: upperStyle),
+          const SizedBox(height: 5),
+          Text(tickerVariation ? stock.ticker : stock.pricePerStock,
+              style: context.textTheme.bodyText2!
+                  .apply(color: context.colorScheme.tertiary))
+        ]),
+        const Spacer(),
+        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Text(tickerVariation ? stock.pricePerStock : stock.price,
+              style: upperStyle),
+          const SizedBox(height: 5),
+          Text('${stock.change > 0 ? '+' : ''}${stock.change}%',
+              style: context.textTheme.bodyText2!.apply(
+                  color: stock.change >= 0
+                      ? context.colorScheme.success
+                      : context.colorScheme.error))
+        ]),
+      ],
+    );
   }
 }
 
@@ -280,7 +290,6 @@ class MainCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(28, 21, 26, 17),
       width: double.infinity,
-      height: 192,
       decoration: BoxDecoration(
           color: context.colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(24)),
@@ -300,14 +309,14 @@ class MainCard extends ConsumerWidget {
           const SizedBox(height: 10),
           Row(children: [
             Container(
-              width: 137,
-              height: 28,
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 7),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: context.colorScheme.successContainer,
                   borderRadius: BorderRadius.circular(36)),
               child: Text.rich(TextSpan(
-                  text: '+ $exampleRubleSurp ₽',
+                  text:
+                      '+ ${exampleRubleSurp.truncate().toString().spaceSeparateNumbers()} ₽',
                   style: context.textTheme.headline4!
                       .apply(color: context.colorScheme.success),
                   children: [
@@ -383,37 +392,5 @@ class CardRowElement extends StatelessWidget {
                       FontWeight.lerp(FontWeight.w400, FontWeight.w500, 0.61),
                   letterSpacing: -0.055)),
         ]));
-  }
-}
-
-class SearchBar extends ConsumerWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-        height: 43,
-        child: TextField(
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(0),
-            filled: true,
-            fillColor: context.colorScheme.primaryContainer,
-            hintText: "Поиск",
-            hintStyle: context.textTheme.headline4!
-                .apply(color: context.colorScheme.secondary),
-            prefixIcon: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 16, 0),
-                child: SvgPicture.asset(
-                  "$drawableFolder/ic_search.svg",
-                  width: 18,
-                  height: 18,
-                )),
-            prefixIconConstraints:
-                const BoxConstraints(minWidth: 18, minHeight: 18),
-            border: const OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(Radius.circular(36))),
-          ),
-        ));
   }
 }

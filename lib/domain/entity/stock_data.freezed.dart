@@ -21,6 +21,7 @@ StockData _$StockDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StockData {
   String get name => throw _privateConstructorUsedError;
+  String get ticker => throw _privateConstructorUsedError;
   String get pricePerStock => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   double get change => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $StockDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String ticker,
       String pricePerStock,
       String price,
       double change,
@@ -59,6 +61,7 @@ class _$StockDataCopyWithImpl<$Res, $Val extends StockData>
   @override
   $Res call({
     Object? name = null,
+    Object? ticker = null,
     Object? pricePerStock = null,
     Object? price = null,
     Object? change = null,
@@ -68,6 +71,10 @@ class _$StockDataCopyWithImpl<$Res, $Val extends StockData>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      ticker: null == ticker
+          ? _value.ticker
+          : ticker // ignore: cast_nullable_to_non_nullable
               as String,
       pricePerStock: null == pricePerStock
           ? _value.pricePerStock
@@ -98,6 +105,7 @@ abstract class _$$_StockDataCopyWith<$Res> implements $StockDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
+      String ticker,
       String pricePerStock,
       String price,
       double change,
@@ -116,6 +124,7 @@ class __$$_StockDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? ticker = null,
     Object? pricePerStock = null,
     Object? price = null,
     Object? change = null,
@@ -125,6 +134,10 @@ class __$$_StockDataCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      ticker: null == ticker
+          ? _value.ticker
+          : ticker // ignore: cast_nullable_to_non_nullable
               as String,
       pricePerStock: null == pricePerStock
           ? _value.pricePerStock
@@ -151,6 +164,7 @@ class __$$_StockDataCopyWithImpl<$Res>
 class _$_StockData implements _StockData {
   const _$_StockData(
       {required this.name,
+      required this.ticker,
       required this.pricePerStock,
       required this.price,
       required this.change,
@@ -162,6 +176,8 @@ class _$_StockData implements _StockData {
   @override
   final String name;
   @override
+  final String ticker;
+  @override
   final String pricePerStock;
   @override
   final String price;
@@ -172,7 +188,7 @@ class _$_StockData implements _StockData {
 
   @override
   String toString() {
-    return 'StockData(name: $name, pricePerStock: $pricePerStock, price: $price, change: $change, imageURL: $imageURL)';
+    return 'StockData(name: $name, ticker: $ticker, pricePerStock: $pricePerStock, price: $price, change: $change, imageURL: $imageURL)';
   }
 
   @override
@@ -181,6 +197,7 @@ class _$_StockData implements _StockData {
         (other.runtimeType == runtimeType &&
             other is _$_StockData &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.ticker, ticker) || other.ticker == ticker) &&
             (identical(other.pricePerStock, pricePerStock) ||
                 other.pricePerStock == pricePerStock) &&
             (identical(other.price, price) || other.price == price) &&
@@ -191,8 +208,8 @@ class _$_StockData implements _StockData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, pricePerStock, price, change, imageURL);
+  int get hashCode => Object.hash(
+      runtimeType, name, ticker, pricePerStock, price, change, imageURL);
 
   @JsonKey(ignore: true)
   @override
@@ -211,6 +228,7 @@ class _$_StockData implements _StockData {
 abstract class _StockData implements StockData {
   const factory _StockData(
       {required final String name,
+      required final String ticker,
       required final String pricePerStock,
       required final String price,
       required final double change,
@@ -221,6 +239,8 @@ abstract class _StockData implements StockData {
 
   @override
   String get name;
+  @override
+  String get ticker;
   @override
   String get pricePerStock;
   @override
